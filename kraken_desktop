@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Kraken Desktop URL Handler
+# Handles kraken:// protocol URLs by passing them to the Kraken Desktop application
+
+# Set strict error handling
+set -euo pipefail
+
+# Check if a URL was provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <kraken-url>"
+    exit 1
+fi
+
+# Get the URL from arguments
+URL="$1"
+
+# Validate URL format
+if [[ ! "$URL" =~ ^kraken:// ]]; then
+    echo "Error: Invalid URL format. Must start with kraken://"
+    exit 1
+fi
+
+# Launch Kraken Desktop with the URL
+# Replace this with the actual command to launch your Kraken Desktop application
+if command -v kraken-desktop &> /dev/null; then
+    kraken-desktop "$URL"
+else
+    echo "Error: Kraken Desktop application not found"
+    exit 1
+fi
