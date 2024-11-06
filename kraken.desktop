@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Kraken Desktop
+Comment=Handler for kraken:// URLs
+Exec=kraken_desktop %u
+Type=Application
+Terminal=false
+Categories=Network;Finance;
+MimeType=x-scheme-handler/kraken;
