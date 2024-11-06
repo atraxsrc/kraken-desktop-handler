@@ -1,41 +1,86 @@
-# Kraken Desktop URL Handler
+# Kraken Desktop Linux Integration Helper
 
-A Linux desktop integration tool for handling `kraken://` URLs in the Kraken cryptocurrency trading platform.
+A guide and helper scripts for properly integrating the official Kraken Desktop application with Linux systems.
 
 ## Overview
-This tool enables seamless integration between web browsers and the Kraken Desktop application by properly handling `kraken://` protocol URLs on Linux systems.
+This repository provides instructions and utilities for properly setting up the Kraken Desktop application's URL handler (`kraken://`) on Linux systems. This ensures proper integration between your web browser and the Kraken Desktop application.
+
+## Prerequisites
+- Linux operating system with XDG-compliant desktop environment
+- Downloaded Kraken Desktop for Linux from [Official Kraken Website](https://www.kraken.com/desktop)
+- `xdg-utils` package installed
 
 ## Quick Install
+1. Download and install Kraken Desktop from https://www.kraken.com/desktop
+2. Run the following commands:
+
 ```bash
 # For single user installation
-mkdir -p ~/.local/bin ~/.local/share/applications
-cp kraken_desktop ~/.local/bin/
-chmod +x ~/.local/bin/kraken_desktop
-cp kraken.desktop ~/.local/share/applications/
+mkdir -p ~/.local/share/applications
+cp /path/to/downloaded/kraken.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications
 xdg-mime default kraken.desktop x-scheme-handler/kraken
 
 # For system-wide installation
-sudo cp kraken_desktop /usr/local/bin/
-sudo chmod +x /usr/local/bin/kraken_desktop
-sudo cp kraken.desktop /usr/share/applications/
+sudo cp /path/to/downloaded/kraken.desktop /usr/share/applications/
 sudo update-desktop-database
 xdg-mime default kraken.desktop x-scheme-handler/kraken
 ```
 
-## Requirements
-- Linux operating system with XDG-compliant desktop environment
-- `xdg-utils` package installed
+## Installation Verification
+After installation, test the URL handler by:
+1. Running `xdg-open "kraken://test"` in terminal
+2. Clicking any `kraken://` link in your browser
 
-## Files
-- `kraken_desktop`: The URL handler script
-- `kraken.desktop`: The desktop entry file for protocol registration
+The Kraken Desktop application should launch automatically.
 
-## Manual Installation
-See detailed instructions in [INSTALL.md](INSTALL.md)
+## Troubleshooting
+
+### Common Issues
+
+#### URL Handler Not Working
+If clicking `kraken://` links doesn't launch Kraken Desktop:
+1. Verify the .desktop file is in the correct location
+2. Run `update-desktop-database` again
+3. Check if `xdg-mime query default x-scheme-handler/kraken` returns "kraken.desktop"
+
+#### Permission Issues
+If you see permission errors:
+```bash
+# Fix permissions for single user installation
+chmod 644 ~/.local/share/applications/kraken.desktop
+
+# Fix permissions for system-wide installation
+sudo chmod 644 /usr/share/applications/kraken.desktop
+```
+
+## Uninstallation
+To remove the URL handler registration:
+
+```bash
+# For single user installation
+rm ~/.local/share/applications/kraken.desktop
+update-desktop-database ~/.local/share/applications
+
+# For system-wide installation
+sudo rm /usr/share/applications/kraken.desktop
+sudo update-desktop-database
+```
+
+Note: This only removes the URL handler registration. To completely uninstall Kraken Desktop, follow the uninstallation instructions provided with the application.
 
 ## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
+Found a bug or have a suggestion? Please:
+1. Check existing issues first
+2. Open a new issue with detailed description
+3. For fixes/improvements, feel free to submit a Pull Request
+
+## Disclaimer
+This is a community-maintained helper repository and is not officially affiliated with Kraken. For official downloads and support, please visit [Kraken's official website](https://www.kraken.com/desktop).
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This documentation and helper scripts are licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## References
+- [Official Kraken Desktop Download Page](https://www.kraken.com/desktop)
+- [XDG Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/latest/)
